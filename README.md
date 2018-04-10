@@ -1,5 +1,5 @@
-# pay-sdk-rest
-Payment Gateway REST API
+# Payment Gateway REST API
+REST API allows merchants to integrate using JSON over REST. All functionality of payment gateway for Online, MOTO and physical transaction as well as Query API is available over JSON/REST.
 
 ## INTRODUCTION
 
@@ -22,9 +22,9 @@ Please find the below transaction flow for Ecommerce transaction.
 5.	Merchant sends Finalization call to complete transaction.
 
 
-###	Registration
+###	Register
 
-####	Registration Call
+	Register Call is reuired to initiate a transaction by merchant.
 Required to provide the below properties while calling Registration. 
 Property	Usage	Comments
 Request Properties
