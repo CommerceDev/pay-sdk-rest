@@ -1,7 +1,7 @@
 # pay-sdk-rest
 Payment Gateway REST API
 
-##INTRODUCTION
+## INTRODUCTION
 
 The document provides the interface information to Integrate with Etisalat Payment Gateway to perform Ecommerce payment using REST (JSON).
 
@@ -12,22 +12,19 @@ Please find the below transaction flow for Ecommerce transaction.
 
 1.	The registration call should be triggered to payment gateway in which the ReturnPath property with Transaction details like amount , currency , OrderID ect should be mentioned. 
 2.	Redirect to Payment Portal URL, returned in Register call with TransactionID as hidden field.
+```
 <form action=<Payment Portal URL> method="post"> 
 <input type='Hidden' name='TransactionID' value=<TransactionID value>/> 
 <input type="submit" value="Submit">
+```
 3.	Payer will proceed with 3D Secure Authentication process.
 4.	After 3D Authentication, control will returned back to Merchant’s ReturnPath property URL received in registration call.
 5.	Merchant sends Finalization call to complete transaction.
 
 
-
-
-
-
-
 ###	Registration
 
-3.1	Registration Call
+####	Registration Call
 Required to provide the below properties while calling Registration. 
 Property	Usage	Comments
 Request Properties
@@ -53,7 +50,8 @@ should not be used to check if transaction was successful, to check if
 transaction was successful please use ResponseCode field.	MANDATORY
 UniqueID	Unique reference ID for this call	MANDATORY
 
-3.2	Sample Request
+####	Sample Request
+```
 {
  "Registration" : {
    "Currency": "AED",  
@@ -68,7 +66,9 @@ UniqueID	Unique reference ID for this call	MANDATORY
    "OrderName": "Paybill"
 	}
 }
-3.3	Sample Response
+```
+####	Sample Response
+```
 {  
    "Transaction":{  
       "PaymentPortal":"https://demo-ipg.comtrust.ae/PaymentEx/Paymentpartner/Payment?lang=en&layout=C0STCBVLEI",
@@ -91,12 +91,12 @@ UniqueID	Unique reference ID for this call	MANDATORY
       "UniqueID":"a25ea7da-a212-406a-967b-94953191aad7"
    }
 }
-
+```
 
 
 ###	Finalization
 
-3.1	Finalization Call
+####	Finalization Call
 Required to provide the below properties while calling Finalization to complete payment.
 Property	Usage	Comments
 Request Properties
@@ -120,16 +120,17 @@ It will return first 6 and last 4 digits of credit card used for payment.
 CardToken	Tokenized value for the card used, it’s not original credit card number but will always be same for any particular credit card number	
 Account	Name of account in payment gateway configurations that transaction happened with (to avoid any confusions, use this field for any references or logging only if advised by Merchant Integration Support)	
 
-3.2	Sample Request
+####	Sample Request
+```
 {
   "Finalization": {
     "TransactionID": "755580466468",
     "Customer": "Demo Merchant"
   }
 }
-
-3.3	Sample Response
-
+```
+####	Sample Response
+```
 {  
    "Transaction":{  
       "ResponseCode":"0",
@@ -158,14 +159,14 @@ Account	Name of account in payment gateway configurations that transaction happe
       "UniqueID":"798ddc2f-f8e4-41e1-a5e3-b065448d75e3"
    }
 }
-
+```
 
 
 
 ##	Properties
 
 
-5.1. Point of Sale Properties 
+### Point of Sale Properties 
  
 Property 	Description 
 Customer 
@@ -189,7 +190,7 @@ Terminal
  
 	not been provisioned in Payment Gateway, Merchant Integration Supportteam advises the merchant on its usage upon request) 
  
-5.2. Transaction Properties 
+### Transaction Properties 
  
 Property 	Description 
 Language 
@@ -255,7 +256,7 @@ TransactionID
  	Transaction reference number. This is returned by EPG itself in response of WEB SERVICE Registration call 
 RecurrenceID	Transaction reference number for registered credit card to initiate recurrence transaction.
 MerchantAccount	Name of account in payment gateway configurations that transaction happened with (to avoid any confusions, use this field for any references or logging only if advised by Merchant Integration Support)	
-5.3. Buyer Properties 
+### Buyer Properties 
  
 Property 	Description 
 AccountNumber 	Credit or Debit Card number
@@ -274,7 +275,7 @@ Note: In case CardTrackData is being sent to EPG then there is no need to send a
   
   	 
  
-5.4. Response Properties 
+### Response Properties 
  
 These response properties can be retrieved in response to a particular call. For code sample/syntax refer to Section 5.3.8.2 Late Bound Properties. 
 Property 	Description 
@@ -346,7 +347,7 @@ ADCB Account
  
 ##	Configuration And Test Accounts
 
-6.1	Server Configuration.
+###	Server Configuration.
 Server	URL	Port
 Production	https://ipg.comtrust.ae
 2443
@@ -359,14 +360,14 @@ a)	Customer
 b)	Store
 c)	Terminal
 
-6.2	Test Credit Cards for Sandbox environment
+###	Test Credit Cards for Sandbox environment
 Visa Card	Master Card	Error Code	Error Description
 4111111111111111	5555555555554444	0	Success
 4012888888881881	 	51	Not Sufficient Fund
  	5105105105105100	5	Do not honor
 Other Valid Visa Cards	Other Valid Master Cards	91	Issuer Switch inoperative
 
-6.3	Client Certificate for Sandbox environment
+###	Client Certificate for Sandbox environment
 
 Download Demo Merchant Certificate using below link. Password is “Comtrust”
 https://demo-ipg.comtrust.ae/merchant/Downloads/Certificates.zip
